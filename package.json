@@ -5,8 +5,16 @@
   "repository": "ssh://git@github.com/amasho/ticket-crawler.git",
   "author": "Shota Amano <amasho@dev-cycle.io>",
   "license": "MIT",
+  "scripts": {
+    "start": "env-cmd ./.env webpack -p && node dist/app.js"
+  },
   "dependencies": {
+    "@types/webpack": "^4.4.25",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-core": "^6.26.3",
     "env-cmd": "^8.0.2",
+    "json-loader": "^0.5.7",
+    "path": "^0.12.7",
     "prettier": "^1.16.4",
     "puppeteer": "^1.13.0",
     "ts-lint": "^4.5.1",
@@ -14,6 +22,9 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "typings": "^2.1.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   }
 }
