@@ -1,0 +1,19 @@
+{
+  "name": "ticket-crawler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "ssh://git@github.com/amasho/ticket-crawler.git",
+  "author": "Shota Amano <amasho@dev-cycle.io>",
+  "license": "MIT",
+  "dependencies": {
+    "env-cmd": "^8.0.2",
+    "prettier": "^1.16.4",
+    "puppeteer": "^1.13.0",
+    "ts-lint": "^4.5.1",
+    "ts-node": "^8.0.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.3.3333"
+  }
+}

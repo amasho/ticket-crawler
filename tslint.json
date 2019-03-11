@@ -1,0 +1,12 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint-config-prettier"],
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+    "prettier": [true, ".prettierrc.yml"],
+    "interface-name": [true, "never-prefix"],
+    "radix": true,
+    "jsx-no-lambda": false,
+    "prefer-object-spread": true
+  }
+}
