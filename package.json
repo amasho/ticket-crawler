@@ -6,7 +6,7 @@
   "author": "Shota Amano <amasho@dev-cycle.io>",
   "license": "MIT",
   "scripts": {
-    "start": "env-cmd ./.env yarn ts-node src/main.ts"
+    "start": "env-cmd ./.env yarn ts-node src/Main.ts"
   },
   "dependencies": {
     "@types/node": "^11.11.0",
