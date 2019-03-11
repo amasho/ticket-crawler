@@ -6,7 +6,8 @@ const usePlugins: webpack.Plugin[] = [
     'process.env': {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       TARGET_URL: JSON.stringify(process.env.TARGET_URL),
-      REGION: JSON.stringify(process.env.REGION)
+      LOGIN_ID: JSON.stringify(process.env.LOGIN_ID),
+      LOGIN_PW: JSON.stringify(process.env.LOGIN_PW)
     }
   }),
   new webpack.optimize.AggressiveMergingPlugin(),
