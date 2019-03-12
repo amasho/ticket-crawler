@@ -1,3 +1,21 @@
 import Process from './Process'
+;(async () => {
+  const MAX_RETRY = 4
+  let retryCount = 0
+  let returnStatus = ''
 
-new Process().run(<string>process.env.TARGET_URL)
+  console.debug('### Initilized')
+  const proc = new Process()
+
+  await proc.setPageContext()
+
+  do {
+    console.debug(`### Start retry=${retryCount}`)
+
+    returnStatus = await proc.run(<string>process.env.TARGET_URL, retryCount)
+
+    console.debug(`### Done status=${returnStatus}`)
+  } while (returnStatus === 'ng' && ++retryCount <= MAX_RETRY)
+
+  await proc.destroyClient()
+})()
