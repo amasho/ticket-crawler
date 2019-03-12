@@ -1,6 +1,6 @@
 import Process from './Process'
 ;(async () => {
-  const MAX_RETRY = 4
+  const MAX_RETRY = 10000
   let retryCount = 0
   let returnStatus = ''
 
@@ -11,9 +11,7 @@ import Process from './Process'
 
   do {
     console.debug(`### Start retry=${retryCount}`)
-
     returnStatus = await proc.run(<string>process.env.TARGET_URL, retryCount)
-
     console.debug(`### Done status=${returnStatus}`)
   } while (returnStatus === 'ng' && ++retryCount <= MAX_RETRY)
 

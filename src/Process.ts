@@ -1,10 +1,5 @@
 import { Browser, launch, Page } from 'puppeteer'
 
-interface Window {
-  scrollBy(start: number, end: number): void
-}
-declare var window: Window
-
 export default class Process {
   pageContext: Page
   puppeteerClient: Browser
@@ -43,32 +38,27 @@ export default class Process {
     await this.pageContext.goto(url)
     await this.pageContext.waitFor(3000)
 
-    await this.pageContext.evaluate(() => {
-      window.scrollBy(0, 1100)
-      Promise.resolve()
-    })
-
     if ((await this._isBeforeSale()) === true) {
       console.error('INFO: Target before sale')
       return 'ng'
     }
 
     await this.pageContext.select('select.event_ticket_count', '1')
-    await this.pageContext.waitFor(3000)
+    await this.pageContext.waitFor(1000)
 
     const purchaseConfirmButton = await this.pageContext.$('.btn-procedure-pc-only > button')
     if (!purchaseConfirmButton) return 'ng'
 
-    purchaseConfirmButton.click()
-    await this.pageContext.waitFor(5000)
+    await purchaseConfirmButton.click()
+    await this.pageContext.waitFor(4000)
 
-    await this.pageContext.screenshot({ path: `done${count}.png` })
+    await this.pageContext.screenshot({ path: `before-purchase-${count}.png`, fullPage: true })
 
-    // クレカ決済
-    this._creditCardPurchase()
+    await this._creditCardPurchase()
 
-    // コンビニ決済
-    // this._convenienceStorePurchase()
+    await this._otherPaymentPurchase()
+
+    await this.pageContext.screenshot({ path: `after-purchase-${count}.png`, fullPage: true })
 
     return 'ok'
   }
@@ -83,11 +73,31 @@ export default class Process {
     await p.waitFor(3000)
   }
 
+  // private async _getInputValue(name: string) {
+  //   return await this.pageContext.$eval(`input[name="${name}"]`, (el: HTMLInputElement) => el.value)
+  // }
+
   private async _isBeforeSale(): Promise<Boolean> {
     return !!(await this.pageContext.$('.status.label-status.before-sale')) ? true : false
   }
 
-  private async _creditCardPurchase() {}
+  private async _creditCardPurchase() {
+    const el = await this.pageContext.$('#credit_card_select_img')
+    if (!!el) {
+      // await el.click()
+      // await p.waitFor(5000)
+    }
+  }
 
-  private async _convenienceStorePurchase() {}
+  private async _otherPaymentPurchase() {
+    const p: Page = this.pageContext
+    const el = await p.$('#other_payment_method_select_img')
+    if (!!el) {
+      await el.click()
+      await p.select('select#cvs_select', '016')
+      await p.waitFor(1000)
+      await p.click('button[type=submit]')
+      await p.waitFor(5000)
+    }
+  }
 }
