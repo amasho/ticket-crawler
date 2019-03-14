@@ -64,9 +64,10 @@ export default class Process {
   }
 
   private async _login() {
+    console.debug('### Login')
     const p: Page = this.pageContext
     await p.goto(this.siteLoginUrl)
-    await p.waitFor(3000)
+    await p.waitFor(1000)
     await p.type('input[name="login"]', this.siteLoginId)
     await p.type('input[name="password"]', this.siteLoginPw)
     await p.click('button[type=submit]')
